@@ -8,22 +8,60 @@
 
 #import "PSBViewController.h"
 
-@interface PSBViewController ()
+@interface PSBViewController () <UIPageViewControllerDataSource>
+
+@property (nonatomic, strong) NSArray *controllers;
 
 @end
 
 @implementation PSBViewController
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    
+    NSMutableArray *controllers = [NSMutableArray array];
+    for (NSInteger i = 0; i < 3; i++) {
+        UIViewController *controller = [[UIViewController alloc] init];
+        [controller setTitle:[NSString stringWithFormat:@"Controller %i", i + 1]];
+        [controller.view setBackgroundColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+        [controllers addObject:navController];
+    }
+    _controllers = [controllers copy];
+    [self setDataSource:self];
+    [self setViewControllers:@[controllers[0]] direction:0 animated:NO completion:nil];
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark UIPageViewControllerDataSource
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSInteger index = [self.controllers indexOfObject:viewController];
+    
+    if (viewController == nil)
+        index = 0;
+    else if (index == 0)
+        return nil;
+    else
+        index--;
+    return self.controllers[index];
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
+    NSInteger index = [self.controllers indexOfObject:viewController];
+    
+    if (viewController == nil)
+        index = 0;
+    else if (index == 2)
+        return nil;
+    else
+        index++;
+    return self.controllers[index];
 }
 
 @end

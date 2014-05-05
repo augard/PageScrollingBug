@@ -114,9 +114,9 @@
 			children = (
 				652BAA711917AA0C00D1867A /* PSBAppDelegate.h */,
 				652BAA721917AA0C00D1867A /* PSBAppDelegate.m */,
-				652BAA741917AA0C00D1867A /* Main.storyboard */,
 				652BAA771917AA0C00D1867A /* PSBViewController.h */,
 				652BAA781917AA0C00D1867A /* PSBViewController.m */,
+				652BAA741917AA0C00D1867A /* Main.storyboard */,
 				652BAA7A1917AA0C00D1867A /* Images.xcassets */,
 				652BAA691917AA0C00D1867A /* Supporting Files */,
 			);
